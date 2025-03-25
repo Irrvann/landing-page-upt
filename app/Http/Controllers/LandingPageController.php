@@ -6,6 +6,7 @@ use App\Models\AboutModel;
 use App\Models\GalleryModel;
 use App\Models\ContactModel;
 use App\Models\ServicesModel;
+use App\Models\SosmedModels;
 use Illuminate\Http\Request;
 
 class LandingPageController extends Controller
@@ -20,11 +21,14 @@ class LandingPageController extends Controller
 
         $services = ServicesModel::where('status', 'aktif')->get();
 
+        $sosmed = SosmedModels::where('status', 'aktif')->get();
+
         return view('landing-page/home', [
             'about' => $about,
             'gallery' => $gallery,
             'contact' => $contact,
-            'services' => $services
+            'services' => $services,
+            'sosmed' => $sosmed
         ]);
     }
 

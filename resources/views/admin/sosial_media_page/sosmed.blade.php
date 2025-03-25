@@ -107,7 +107,8 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h5 class="card-title">Halaman Galeri</h5>
-                        <a href="" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahDataGModal">
+                        <a href="#" class="btn btn-success" data-bs-toggle="modal"
+                            data-bs-target="#tambahDataSMModal">
                             <i class="bi bi-plus-circle me-1"></i>Tambah Data
                         </a>
                     </div>
@@ -116,7 +117,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Sosial Media</th>
+                                    <th>Nama Sosial Media UPT</th>
                                     <th>Platform</th>
                                     <th>Foto</th>
                                     <th>Link Sosmed</th>
@@ -125,46 +126,47 @@
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            {{-- @if (count($gallery) < 1)
+                            @if (count($sosmed) < 1)
                                 <tbody>
                                     <tr>
-                                        <td colspan="6">
+                                        <td colspan="8">
                                             <p class="text-center pt-3">Tidak Ada Data</p>
                                         </td>
                                     </tr>
                                 </tbody>
-                            @else --}}
+                            @else
                                 <tbody>
-                                    {{-- @foreach ($gallery as $g) --}}
+                                    @foreach ($sosmed as $s)
                                         <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td>{{ $s->id }}</td>
+                                            <td>{{ $s->nama_sosmed_upt }}</td>
+                                            <td>{{ $s->nama_sosmed }}</td>
+                                            <td>{{ $s->link_sosmed }}</td>
                                             <td>
-                                                <img width="100" height="100"
-                                                    src="" alt="">
+                                                <img src="{{ asset('storage/' . $s->foto_sosmed) }}" width="100px"
+                                                    height="100px" alt="">
                                             </td>
-                                            <td></td>
+                                            <td>{{ $s->created_at }}</td>
                                             <td>
-                                                {{-- @if ($g->status == 'aktif')
+                                                @if ($s->status == 'aktif')
                                                     <span class="badge bg-success">Aktif</span>
                                                 @else
                                                     <span class="badge bg-danger">Tidak Aktif</span>
-                                                @endif --}}
+                                                @endif
                                             </td>
                                             <td>
-                                                <span role="button" style="cursor: pointer" class="badge bg-warning"
-                                                    onclick="openEditModalG()">
+                                                <span role="button" style="cursor: pointer;" class="badge bg-warning"
+                                                    onclick="openEditModalSM({{ json_encode($s) }})">
                                                     Edit
                                                 </span>
                                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                    data-bs-target="#konfirmasiDelete-">
+                                                    data-bs-target="#konfirmasiDeleteSM-{{ $s->id }}">
                                                     Hapus
                                                 </button>
                                             </td>
                                         </tr>
-                                        @include('admin.gallery_page.confirm_delete')
-                                    {{-- @endforeach --}}
+                                        @include('admin.sosial_media_page.confirm_delete')
+                                    @endforeach
                                 </tbody>
                             @endif
                         </table>
@@ -173,8 +175,9 @@
             </section>
         </div>
 
-        @include('admin.gallery_page.tambah_gallery')
-        @include('admin.gallery_page.edit_gallery')
+        @include('admin.sosial_media_page.tambah_sosmed')
+        @include('admin.sosial_media_page.edit_sosmed')
+
 
         <footer>
             <div class="footer clearfix mb-0 text-muted">

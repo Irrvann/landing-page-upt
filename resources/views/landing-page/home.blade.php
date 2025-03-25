@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UPT-KOMP | IWIMA</title>
-    {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
@@ -436,54 +435,68 @@
             </div>
             <div class="flex flex-wrap md:flex-nowrap items-center justify-between mt-7 px-8 pb-10 relative z-10">
                 <div class="w-full md:w-2/5">
-                    <div class="relative">
-                        <div
-                            class="absolute -inset-2 bg-gradient-to-r from-purple-400 to-indigo-400 rounded-lg blur-sm opacity-75">
-                        </div>
-                        <img src="/api/placeholder/400/320" alt="UPT Komputer"
-                            class="relative rounded-lg shadow-xl transform transition-transform hover:scale-105 duration-300">
-                        <div
-                            class="absolute -bottom-4 -right-4 w-16 h-16 bg-yellow-400 rounded-md -rotate-6 z-0 opacity-80">
-                        </div>
-                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-6">
+                        @foreach ($sosmed as $sm)
+                            <div
+                                class="relative group overflow-hidden rounded-xl shadow-lg transition-all duration-300 hover:shadow-2xl">
 
-                    <div class="relative mt-6">
-                        <div
-                            class="absolute -inset-2 bg-gradient-to-r from-purple-400 to-indigo-400 rounded-lg blur-sm opacity-75">
-                        </div>
-                        <img src="/api/placeholder/400/320" alt="UPT Komputer"
-                            class="relative rounded-lg shadow-xl transform transition-transform hover:scale-105 duration-300">
-                        <div
-                            class="absolute -bottom-4 -right-4 w-16 h-16 bg-yellow-400 rounded-md -rotate-6 z-0 opacity-80">
-                        </div>
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-r from-purple-400 to-indigo-400 opacity-0 group-hover:opacity-75 transition-opacity duration-300 rounded-xl">
+                                </div>
+
+
+                                <div class="relative overflow-hidden rounded-xl">
+                                    <img src="{{ asset('storage/' . $sm->foto_sosmed) }}" alt="{{ $sm->nama_sosmed }}"
+                                        class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110">
+
+
+                                    <div
+                                        class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300">
+                                    </div>
+                                </div>
+
+
+                                <div
+                                    class="absolute bottom-0 left-0 right-0 p-4 bg-white bg-opacity-90 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                                    <h3 class="text-sm text-gray-500">{{ $sm->nama_sosmed }}</h3>
+                                    <h2 class="text-xl font-bold text-gray-800 truncate">{{ $sm->nama_sosmed_upt }}
+                                    </h2>
+                                </div>
+
+
+                                <div
+                                    class="absolute -bottom-2 -right-2 w-16 h-16 bg-yellow-400 rounded-md -rotate-6 z-0 opacity-75 group-hover:opacity-100 transition-opacity duration-300">
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
 
                 <form class="w-full md:w-1/2 bg-white rounded-lg shadow-lg p-6">
-                    <div class="mb-4">
-                        <label for="nim" class="block text-gray-700 font-semibold mb-2">Nomer Induk
+                    <div class="mb-2">
+                        <label for="nim" class="block text-gray-700 font-semibold">Nomer Induk
                             Mahasiswa</label>
-                        <input type="text" id="nim" class="w-full p-2 border border-gray-300 rounded"
+                        <input type="text" id="nim" class="w-full h-8 border border-gray-300 rounded"
                             required>
                     </div>
-                    <div class="mb-4">
-                        <label for="nama" class="block text-gray-700 font-semibold mb-2">Nama Lengkap</label>
-                        <input type="text" id="nama" class="w-full p-2 border border-gray-300 rounded"
+                    <div class="mb-2">
+                        <label for="nama" class="block text-gray-700 font-semibold">Nama Lengkap</label>
+                        <input type="text" id="nama" class="w-full h-8 border border-gray-300 rounded"
                             required>
                     </div>
-                    <div class="mb-4">
-                        <label for="kelas" class="block text-gray-700 font-semibold mb-2">Kode Kelas</label>
-                        <input type="text" id="kelas" class="w-full p-2 border border-gray-300 rounded"
+                    <div class="mb-2">
+                        <label for="kelas" class="block text-gray-700 font-semibold">Kode Kelas</label>
+                        <input type="text" id="kelas" class="w-full h-8 border border-gray-300 rounded"
                             required>
                     </div>
-                    <div class="mb-4">
-                        <label for="no" class="block text-gray-700 font-semibold mb-2">WhatsApp</label>
-                        <input type="number" id="no" class="w-full p-2 border border-gray-300 rounded"
+                    <div class="mb-2">
+                        <label for="no" class="block text-gray-700 font-semibold">WhatsApp</label>
+                        <input type="number" id="no" class="w-full h-8 border border-gray-300 rounded"
                             required>
                     </div>
-                    <div class="mb-4">
-                        <label for="alamat" class="block text-gray-700 font-semibold mb-2">Alamat</label>
-                        <textarea id="alamat" rows="4" class="w-full p-2 border border-gray-300 rounded" required></textarea>
+                    <div class="mb-2">
+                        <label for="alamat" class="block text-gray-700 font-semibold">Alamat</label>
+                        <textarea id="alamat" rows="4" class="w-full h-15 border border-gray-300 rounded" required></textarea>
                     </div>
                     <button type="submit" onclick="kirimPesan()"
                         class="bg-purple-500 text-white font-semibold py-2 px-4 rounded hover:bg-purple-600 transition duration-300">

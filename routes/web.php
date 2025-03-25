@@ -6,6 +6,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SosmedController;  
 use Illuminate\Support\Facades\Route;
 
 // Rute Landing Page
@@ -50,7 +51,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // Rute Master Sosial Media
-    Route::get('/master/sosmed', []);
+    Route::get('/master/sosmed', [SosmedController::class, 'index']);
+    Route::post('/master/sosmed-tambah', [SosmedController::class, 'store']);
+    Route::put('/master/sosmed-ubah/{id}', [SosmedController::class, 'update']);
+    Route::delete('/master/sosmed-hapus/{id}', [SosmedController::class, 'destroy']);
 });
 
 

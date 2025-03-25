@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sosmed_models', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama_sosmed', 50);
-            $table->string('link_sosmed', 255);
-            $table->string('foto_sosmed', 255);
-            $table->string('status', 50);
-            $table->timestamps();
+        Schema::table('sosmed_models', function (Blueprint $table) {
+            $table->string('nama_sosmed_upt', 50)->after('id');
         });
     }
 
@@ -26,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sosmed_models');
+        Schema::table('sosmed_models', function (Blueprint $table) {
+            //
+        });
     }
 };
