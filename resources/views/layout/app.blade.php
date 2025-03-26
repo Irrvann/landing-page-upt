@@ -15,7 +15,7 @@
 
         <link rel="stylesheet" href="{{ asset('template-mazer/dist/assets/compiled/css/app.css') }}">
         <link rel="stylesheet" href="{{ asset('template-mazer/dist/assets/compiled/css/app-dark.css') }}">
-        <link rel="stylesheet" href="{{ asset('template-mazer/dist//assets/compiled/css/iconly.css') }}">
+        <link rel="stylesheet" href="{{ asset('template-mazer/dist/assets/compiled/css/iconly.css') }}">
 </head>
 
 <body>

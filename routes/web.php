@@ -7,14 +7,12 @@ use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SosmedController;  
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 
 // Rute Landing Page
 Route::get('/', [landingPageController::class, 'index']);
 Route::get('/dashboard', [landingPageController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
-
-// Rute Dashboard
-// Route::get('/dashboard', [landingPageController::class, 'dashboard']);
 
     // Rute Master Tentang
 Route::middleware('auth')->group(function () {
@@ -55,6 +53,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/master/sosmed-tambah', [SosmedController::class, 'store']);
     Route::put('/master/sosmed-ubah/{id}', [SosmedController::class, 'update']);
     Route::delete('/master/sosmed-hapus/{id}', [SosmedController::class, 'destroy']);
+
+    // Rute Master User
+    Route::get('/master/akun', [AuthenticatedSessionController::class, 'index']);
+    Route::delete('/master/akun-hapus/{id}', [AuthenticatedSessionController::class, 'hapus']);
 });
 
 

@@ -20,7 +20,7 @@
         <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="logo">
-                    <a href="index.html"><img src="./assets/compiled/svg/logo.svg" alt="Logo" srcset=""></a>
+                    <span>Admin</span>
                 </div>
                 <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -92,20 +92,13 @@
                     </ul>
                 </li>
 
-
                 <li class="sidebar-item  ">
-                    <a href="" class='sidebar-link'>
-                        <i class="bi bi-grid-fill"></i>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit">Logout</button>
-                        </form>
+                    <a href="/master/akun" class='sidebar-link'>
+                        <i class="bi bi-person-badge-fill"></i>
+                        <span>Akun</span>
                     </a>
                 </li>
             </ul>
         </div>
     </div>
 </div>
-
-
-

@@ -1,6 +1,52 @@
 @extends('layout.app')
 
 @section('content')
+    <style>
+        .dropbtn {
+            display: flex;
+            background: none;
+            font-size: 16px;
+            border: none;
+        }
+
+        .btnh {
+            background: none;
+            border: none;
+            color: black;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            color: black;
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 100px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 5px 5px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: rgb(63, 81, 100);
+            color: black;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+    </style>
 
     <div id="main">
         <header class="mb-3">
@@ -103,13 +149,23 @@
                         <div class="card-body py-4 px-4">
                             <div class="d-flex align-items-center">
                                 <div class="avatar avatar-xl">
-                                    <img src="./assets/compiled/jpg/1.jpg" alt="Face 1">
+                                    <img src="{{ asset('template-mazer/dist/assets/compiled/jpg/1.jpg') }}" alt="Face 1">
                                 </div>
-                                <div class="ms-3 name">
-                                    <h5 class="font-bold">John Duck</h5>
-                                    <h6 class="text-muted mb-0">@johnducky</h6>
+                                <div class="ms-3 name dropdown">
+                                    <button class="dropbtn dropdown-toggle">
+                                        @if (Auth::check())
+                                            <h5 class="font-bold">{{ Auth::user()->nama }}</h5>
+                                        @endif
+                                    </button>
+                                    
+
+                                    <div class="dropdown-content">
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <button type="submit" class="btnh">Logout</button>
+                                        </form>
+                                    </div>
                                 </div>
-                                
                             </div>
                         </div>
                     </div>
@@ -167,5 +223,4 @@
             </div>
         </footer>
     </div>
-
 @endsection

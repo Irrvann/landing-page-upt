@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
@@ -43,5 +44,21 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+
+    public function index()
+    {
+        $data = User::all();
+        return view('admin/akun_page/akun', [
+            'akun' => $data
+        ]);
+    }
+
+    public function hapus($id)
+    {
+        $data = User::find($id);
+        $data->delete();
+        return redirect('/master/akun')->with('success', 'Data Berhasil Dihapus');
     }
 }
