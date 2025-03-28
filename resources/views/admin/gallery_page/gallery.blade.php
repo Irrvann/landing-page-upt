@@ -118,7 +118,7 @@
                                     <th>No</th>
                                     <th>Kode Foto</th>
                                     <th>Nama Foto</th>
-                                    <th>Foto</th>
+                                    {{-- <th>Foto</th> --}}
                                     <th>Waktu</th>
                                     <th>Status</th>
                                     <th>Action</th>
@@ -134,15 +134,18 @@
                                 </tbody>
                             @else
                                 <tbody>
+                                    @php
+                                        $no = 1;
+                                    @endphp
                                     @foreach ($gallery as $g)
                                         <tr>
-                                            <td>{{ $g->id }}</td>
+                                            <td>{{ $no++ }}</td>
                                             <td>{{ $g->kode_foto }}</td>
                                             <td>{{ $g->nama_foto }}</td>
-                                            <td>
+                                            {{-- <td>
                                                 <img width="100" height="100"
                                                     src="{{ asset('storage/' . $g->foto_gallery) }}" alt="">
-                                            </td>
+                                            </td> --}}
                                             <td>{{ $g->created_at }}</td>
                                             <td>
                                                 @if ($g->status == 'aktif')
@@ -152,14 +155,18 @@
                                                 @endif
                                             </td>
                                             <td>
+                                                <span role="button" class="badge bg-primary" style="cursor: pointer;"
+                                                    onclick="openDetailModalG('{{ $g->id }}', '{{ $g->nama_foto }}', '{{ $g->foto_gallery }}')">
+                                                    detail
+                                                </span>
                                                 <span role="button" style="cursor: pointer" class="badge bg-warning"
                                                     onclick="openEditModalG('{{ $g->id }}', '{{ $g->kode_foto }}', '{{ $g->nama_foto }}', '{{ $g->foto_gallery }}', '{{ $g->status }}')">
                                                     Edit
                                                 </span>
-                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                <span type="button" class="badge bg-danger" style="cursor: pointer" data-bs-toggle="modal"
                                                     data-bs-target="#konfirmasiDelete-{{ $g->id }}">
                                                     Hapus
-                                                </button>
+                                                </span>
                                             </td>
                                         </tr>
                                         @include('admin.gallery_page.confirm_delete')
@@ -174,6 +181,8 @@
 
         @include('admin.gallery_page.tambah_gallery')
         @include('admin.gallery_page.edit_gallery')
+        @include('admin.gallery_page.detail_gallery')
+
 
         <footer>
             <div class="footer clearfix mb-0 text-muted">
@@ -187,5 +196,72 @@
             </div>
         </footer>
     </div>
+
+    @if (session('sukses'))
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+
+            Toast.fire({
+                icon: "success",
+                title: "Data Berhasil Ditambahkan"
+            });
+        </script>
+    @endif
+
+    @if (session('hapus'))
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+
+            Toast.fire({
+                icon: "success",
+                title: "Data Berhasil DiHapus"
+            });
+        </script>
+    @endif
+
+
+    @if (session('ubah'))
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+
+            Toast.fire({
+                icon: "success",
+                title: "Data Berhasil DiUbah"
+            });
+        </script>
+    @endif
 
 @endsection

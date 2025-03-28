@@ -119,8 +119,8 @@
                                     <th>No</th>
                                     <th>Nama Sosial Media UPT</th>
                                     <th>Platform</th>
-                                    <th>Foto</th>
-                                    <th>Link Sosmed</th>
+                                    {{-- <th>Foto</th>
+                                    <th>Link Sosmed</th> --}}
                                     <th>Waktu</th>
                                     <th>Status</th>
                                     <th>Action</th>
@@ -136,16 +136,19 @@
                                 </tbody>
                             @else
                                 <tbody>
+                                    @php
+                                        $no = 1;
+                                    @endphp
                                     @foreach ($sosmed as $s)
                                         <tr>
-                                            <td>{{ $s->id }}</td>
+                                            <td>{{ $no++ }}</td>
                                             <td>{{ $s->nama_sosmed_upt }}</td>
                                             <td>{{ $s->nama_sosmed }}</td>
-                                            <td>{{ $s->link_sosmed }}</td>
-                                            <td>
+                                            {{-- <td>{{ $s->link_sosmed }}</td> --}}
+                                            {{-- <td>
                                                 <img src="{{ asset('storage/' . $s->foto_sosmed) }}" width="100px"
                                                     height="100px" alt="">
-                                            </td>
+                                            </td> --}}
                                             <td>{{ $s->created_at }}</td>
                                             <td>
                                                 @if ($s->status == 'aktif')
@@ -155,14 +158,18 @@
                                                 @endif
                                             </td>
                                             <td>
+                                                <span role="button" class="badge bg-primary" style="cursor: pointer;"
+                                                    onclick="openDetailModalSos('{{ $s->id }}', '{{ $s->nama_sosmed_upt }}', '{{ $s->foto_sosmed }}', '{{ $s->link_sosmed }}')">
+                                                    detail
+                                                </span>
                                                 <span role="button" style="cursor: pointer;" class="badge bg-warning"
                                                     onclick="openEditModalSM({{ json_encode($s) }})">
                                                     Edit
                                                 </span>
-                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                <span type="button" class="badge bg-danger" style="cursor: pointer" data-bs-toggle="modal"
                                                     data-bs-target="#konfirmasiDeleteSM-{{ $s->id }}">
                                                     Hapus
-                                                </button>
+                                                </span>
                                             </td>
                                         </tr>
                                         @include('admin.sosial_media_page.confirm_delete')
@@ -177,6 +184,7 @@
 
         @include('admin.sosial_media_page.tambah_sosmed')
         @include('admin.sosial_media_page.edit_sosmed')
+        @include('admin.sosial_media_page.detail_sosmed')
 
 
         <footer>
@@ -191,5 +199,72 @@
             </div>
         </footer>
     </div>
+
+    @if (session('sukses'))
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+
+            Toast.fire({
+                icon: "success",
+                title: "Data Berhasil Ditambahkan"
+            });
+        </script>
+    @endif
+
+    @if (session('hapus'))
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+
+            Toast.fire({
+                icon: "success",
+                title: "Data Berhasil DiHapus"
+            });
+        </script>
+    @endif
+
+
+    @if (session('ubah'))
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+
+            Toast.fire({
+                icon: "success",
+                title: "Data Berhasil DiUbah"
+            });
+        </script>
+    @endif
 
 @endsection

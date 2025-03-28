@@ -52,7 +52,7 @@
                                     <th>No</th>
                                     <th>NIM Admin</th>
                                     <th>Nama Admin</th>
-                                    <th>Link WA Admin</th>
+                                    {{-- <th>Link WA Admin</th> --}}
                                     <th>Waktu</th>
                                     <th>Status</th>
                                     <th>Action</th>
@@ -68,12 +68,16 @@
                                 </tbody>
                             @else
                                 <tbody>
+                                    @php
+                                        $no = 1;
+                                    @endphp
                                     @foreach ($contact as $c)
                                         <tr>
-                                            <td>{{ $c->id }}</td>
+                                            <td>{{ $no++ }}</td>
                                             <td>{{ $c->nim }}</td>
                                             <td>{{ $c->nama }}</td>
-                                            <td>{{ $c->link }}</td>
+                                            {{-- <td>{{ $c->link }}</td> --}}
+                                            <td>{{ $c->created_at }}</td>
                                             <td>
                                                 @if ($c->status == 'aktif')
                                                     <span class="badge bg-success">Aktif</span>
@@ -81,15 +85,18 @@
                                                     <span class="badge bg-danger">Tidak Aktif</span>
                                                 @endif
                                             </td>
-                                            <td>{{ $c->created_at }}</td>
                                             <td>
+                                                <span role="button" class="badge bg-primary" style="cursor: pointer;"
+                                                    onclick="openDetailModalC('{{ $c->id }}', '{{ $c->nama }}', '{{ $c->link }}')">
+                                                    detail
+                                                </span>
                                                 <span role="button" style="cursor: pointer" class="badge bg-warning" onclick="openEditModalC('{{ $c->id }}', '{{ $c->nim }}', '{{ $c->nama }}', '{{ $c->link }}', '{{ $c->status }}')" >
                                                     Edit
-                                                </span>
-                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                </span> 
+                                                <span type="button" class="badge bg-danger" style="cursor: pointer" data-bs-toggle="modal"
                                                     data-bs-target="#konfirmasiDelete-{{ $c->id }}">
                                                     Hapus
-                                                </button>
+                                                </span>
                                             </td>
                                         </tr>
                                         @include('admin.contact_page.confirm_delete')
@@ -104,6 +111,7 @@
 
         @include('admin.contact_page.tambah_contact')
         @include('admin.contact_page.edit_contact')
+        @include('admin.contact_page.detail_contact')
 
         <footer>
             <div class="footer clearfix mb-0 text-muted">
@@ -118,4 +126,70 @@
         </footer>
     </div>
 
+    @if (session('sukses'))
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+
+            Toast.fire({
+                icon: "success",
+                title: "Data Berhasil Ditambahkan"
+            });
+        </script>
+    @endif
+
+    @if (session('hapus'))
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+
+            Toast.fire({
+                icon: "success",
+                title: "Data Berhasil DiHapus"
+            });
+        </script>
+    @endif
+
+
+    @if (session('ubah'))
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+
+            Toast.fire({
+                icon: "success",
+                title: "Data Berhasil DiUbah"
+            });
+        </script>
+    @endif
 @endsection

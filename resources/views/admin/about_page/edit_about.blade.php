@@ -1,5 +1,4 @@
- <!-- Modal Edit Data -->
- <div class="modal fade" id="editDataModal" tabindex="-1" aria-labelledby="editDataModalLabel" aria-hidden="true">
+<div class="modal fade" id="editDataModal" tabindex="-1" aria-labelledby="editDataModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -52,13 +51,13 @@
 
 <script>
     function openEditModal(id, nama, foto, status) {
-        // Set nilai input di modal edit
+        
         document.getElementById("edit_id").value = id;
         document.getElementById("edit_nama").value = nama;
         document.getElementById("edit_status").value = status;
         document.getElementById("formEditData").action = "/master/tentang-ubah/" + id;
 
-        // Set preview gambar jika ada
+        
         if (foto) {
             document.getElementById("editPreviewImg").src = "/storage/" + foto;
             document.getElementById("editPreviewImg").style.display = "block";
@@ -67,7 +66,7 @@
             document.getElementById("editPreviewImg").style.display = "none";
         }
 
-        // Tampilkan modal
+        
         var myModal = new bootstrap.Modal(document.getElementById('editDataModal'));
         myModal.show();
     }

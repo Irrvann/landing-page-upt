@@ -34,14 +34,14 @@ class RegisteredUserController extends Controller
         $request->validate([
             'nim' => ['required', 'string', 'max:11'],
             'nama' => ['required', 'string', 'max:255'],
+            'jabatan' => ['required', 'string', 'max:255'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
-
-
 
         $user = User::create([
             'nim' => $request->nim,
             'nama' => $request->nama,
+            'jabatan' => $request->jabatan,
             'password' => Hash::make($request->password),
         ]);
 

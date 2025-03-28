@@ -134,18 +134,21 @@
                             @else
 
                             <tbody>
+                                @php
+                                    $no = 1;
+                                @endphp
                                 @foreach ($akun as $d)
                                 
                                 
                                 <tr>
-                                    <td>{{ $d->id }}</td>
+                                    <td>{{ $no++ }}</td>
                                     <td>{{ $d->nim }}</td>
                                     <td>{{ $d->nama }}</td>
                                     <td>
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        <span type="button" class="badge bg-danger" style="cursor: pointer" data-bs-toggle="modal"
                                             data-bs-target="#konfirmasiDeleteAkun-{{$d->id}}">
                                             Hapus
-                                        </button>
+                                        </span>
                                     </td>
                                 </tr>
                                 @include('admin.akun_page.confirm_delete')
@@ -172,4 +175,49 @@
             </div>
         </footer>
     </div>
+
+    @if (session('sukses'))
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+
+            Toast.fire({
+                icon: "success",
+                title: "Data Berhasil Ditambahkan"
+            });
+        </script>
+    @endif
+
+    @if (session('hapus'))
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+
+            Toast.fire({
+                icon: "success",
+                title: "Data Berhasil DiHapus"
+            });
+        </script>
+    @endif
+
 @endsection

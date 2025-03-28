@@ -82,7 +82,7 @@ class AboutController extends Controller
         $about->update($data);
     
 
-        return redirect('/master/tentang')->with('sukses', 'Data Berhasil Diubah');
+        return redirect('/master/tentang')->with('ubah', 'Data Berhasil Diubah');
     }
 
 
@@ -91,6 +91,6 @@ class AboutController extends Controller
     {
         $data  = AboutModel::findOrFail($id);
         $data->delete();
-        return redirect('/master/tentang')->with('sukses', 'Data Berhasil Dihapus');
+        return redirect('/master/tentang')->with('hapus', 'Data Berhasil Dihapus');
     }
 }

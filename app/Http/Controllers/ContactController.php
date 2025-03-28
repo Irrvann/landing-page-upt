@@ -57,7 +57,7 @@ class ContactController extends Controller
 
         $contact->update($data);
 
-        return redirect('/master/kontak')->with('sukses', 'Data Berhasil Diubah');
+        return redirect('/master/kontak')->with('ubah', 'Data Berhasil Diubah');
     }
 
     public function destroy($id)
@@ -65,7 +65,7 @@ class ContactController extends Controller
         $data = ContactModel::findOrFail($id);
         $data->delete();
 
-        return redirect('/master/kontak')->with('sukses', 'Data Berhasil Dihapus');
+        return redirect('/master/kontak')->with('hapus', 'Data Berhasil Dihapus');
     }
 }
 

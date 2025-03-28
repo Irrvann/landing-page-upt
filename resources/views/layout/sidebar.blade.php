@@ -59,41 +59,41 @@
         <div class="sidebar-menu">
             <ul class="menu">
                 <li class="sidebar-title">Menu</li>
-
-                <li class="sidebar-item active ">
-                    <a href="/dashboard" class='sidebar-link'>
+        
+                <li class="sidebar-item {{ request()->is('dashboard') ? 'active' : '' }}">
+                    <a href="{{ url('/dashboard') }}" class='sidebar-link'>
                         <i class="bi bi-grid-fill"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
-
-                <li class="sidebar-item  has-sub">
-                    <a href="#" class='sidebar-link'>
+        
+                <li class="sidebar-item has-sub {{ request()->is('master*') ? 'active' : '' }}">
+                    <a href="{{ url('/master') }}" class='sidebar-link'>
                         <i class="bi bi-stack"></i>
                         <span>Master Data</span>
                     </a>
-
-                    <ul class="submenu ">
-                        <li class="submenu-item  ">
-                            <a href="/master/tentang" class="submenu-link">Data About</a>
+        
+                    <ul class="submenu">
+                        <li class="submenu-item {{ request()->is('master/tentang') ? 'active' : '' }}">
+                            <a href="{{ url('/master/tentang') }}" class="submenu-link">Data About</a>
                         </li>
-                        <li class="submenu-item  ">
-                            <a href="/master/services" class="submenu-link">Data Services</a>
+                        <li class="submenu-item {{ request()->is('master/services') ? 'active' : '' }}">
+                            <a href="{{ url('/master/services') }}" class="submenu-link">Data Services</a>
                         </li>
-                        <li class="submenu-item  ">
-                            <a href="/master/galeri" class="submenu-link">Data Gallery</a>
+                        <li class="submenu-item {{ request()->is('master/galeri') ? 'active' : '' }}">
+                            <a href="{{ url('/master/galeri') }}" class="submenu-link">Data Gallery</a>
                         </li>
-                        <li class="submenu-item  ">
-                            <a href="/master/kontak" class="submenu-link">Data Contact</a>
+                        <li class="submenu-item {{ request()->is('master/kontak') ? 'active' : '' }}">
+                            <a href="{{ url('/master/kontak') }}" class="submenu-link">Data Contact</a>
                         </li>
-                        <li class="submenu-item  ">
-                            <a href="/master/sosmed" class="submenu-link">Data Sosial Media</a>
+                        <li class="submenu-item {{ request()->is('master/sosmed') ? 'active' : '' }}">
+                            <a href="{{ url('/master/sosmed') }}" class="submenu-link">Data Sosial Media</a>
                         </li>
                     </ul>
                 </li>
-
-                <li class="sidebar-item  ">
-                    <a href="/master/akun" class='sidebar-link'>
+        
+                <li class="sidebar-item {{ request()->is('akun') ? 'active' : '' }}">
+                    <a href="{{ url('/akun') }}" class='sidebar-link'>
                         <i class="bi bi-person-badge-fill"></i>
                         <span>Akun</span>
                     </a>

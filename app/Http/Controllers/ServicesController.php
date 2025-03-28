@@ -80,7 +80,7 @@ class ServicesController extends Controller
         $about->update($data);
     
 
-        return redirect('/master/services')->with('sukses', 'Data Berhasil Diubah');
+        return redirect('/master/services')->with('ubah', 'Data Berhasil Diubah');
     }
 
 
@@ -89,6 +89,6 @@ class ServicesController extends Controller
         $data = ServicesModel::findOrFail($id);
         $data->delete();
 
-        return redirect('/master/services')->with('sukses', 'Data Berhasil Dihapus');
+        return redirect('/master/services')->with('hapus', 'Data Berhasil Dihapus');
     }
 }

@@ -120,10 +120,10 @@
                                     <th>No</th>
                                     <th>Kode Services</th>
                                     <th>Nama Services</th>
-                                    <th>Deskripsi Services</th>
-                                    <th>Foto Services</th>
-                                    <th>Status</th>
+                                    {{-- <th>Deskripsi Services</th>
+                                    <th>Foto Services</th> --}}
                                     <th>Waktu</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -137,16 +137,20 @@
                                 </tbody>
                             @else
                                 <tbody>
+                                    @php
+                                        $no = 1;
+                                    @endphp
                                     @foreach ($services as $s)
                                         <tr>
-                                            <td>{{ $s->id }}</td>
+                                            <td>{{ $no++ }}</td>
                                             <td>{{ $s->kode_services }}</td>
                                             <td>{{ $s->nama_services }}</td>
-                                            <td>{{ $s->deskripsi_services }}</td>
+                                            {{-- <td>{{ $s->deskripsi_services }}</td>
                                             <td>
                                                 <img src="{{ asset('storage/' . $s->foto_services) }}" width="100"
                                                     height="100" alt="">
-                                            </td>
+                                            </td> --}}
+                                            <td>{{ $s->created_at }}</td>
                                             <td>
                                                 @if ($s->status == 'aktif')
                                                     <span class="badge bg-success">Aktif</span>
@@ -154,16 +158,19 @@
                                                     <span class="badge bg-danger">Tidak Aktif</span>
                                                 @endif
                                             </td>
-                                            <td>{{ $s->created_at }}</td>
                                             <td>
+                                                <span role="button" class="badge bg-primary" style="cursor: pointer;"
+                                                    onclick="openDetailModalS('{{ $s->id }}', '{{ $s->nama_services }}', '{{ $s->deskripsi_services }}', '{{ $s->foto_services }}')">
+                                                    detail
+                                                </span>
                                                 <span role="button" style="cursor: pointer;" class="badge bg-warning"
                                                     onclick="openEditModalS('{{ $s->id }}', '{{ $s->kode_services }}', '{{ $s->nama_services }}', '{{ $s->deskripsi_services }}', '{{ $s->foto_services }}', '{{ $s->status }}')">
                                                     Edit
                                                 </span>
-                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                <span type="button" class="badge bg-danger" style="cursor: pointer;"  data-bs-toggle="modal"
                                                     data-bs-target="#konfirmasiDelete-{{ $s->id }}">
                                                     Hapus
-                                                </button>
+                                            </span>
                                             </td>
                                         </tr>
                                         
@@ -179,6 +186,7 @@
 
         @include('admin.services_page.tambah_services')
         @include('admin.services_page.edit_services')
+        @include('admin.services_page.detail_services')
         
 
         <footer>
@@ -193,4 +201,72 @@
             </div>
         </footer>
     </div>
+
+
+    @if (session('sukses'))
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+
+            Toast.fire({
+                icon: "success",
+                title: "Data Berhasil Ditambahkan"
+            });
+        </script>
+    @endif
+
+    @if (session('hapus'))
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+
+            Toast.fire({
+                icon: "success",
+                title: "Data Berhasil DiHapus"
+            });
+        </script>
+    @endif
+
+
+    @if (session('ubah'))
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+
+            Toast.fire({
+                icon: "success",
+                title: "Data Berhasil DiUbah"
+            });
+        </script>
+    @endif
 @endsection

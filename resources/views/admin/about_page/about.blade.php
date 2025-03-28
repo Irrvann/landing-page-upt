@@ -6,7 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
-    
+
 
     <style>
         table.table td,
@@ -120,7 +120,6 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama Foto</th>
-                                    <th>Foto</th>
                                     <th>Waktu</th>
                                     <th>Status</th>
                                     <th>Action</th>
@@ -136,14 +135,17 @@
                                 </tbody>
                             @else
                                 <tbody>
+                                    @php
+                                        $no = 1;
+                                    @endphp
                                     @foreach ($about as $a)
                                         <tr>
-                                            <td>{{ $a->id }}</td>
+                                            <td>{{ $no++ }}</td>
                                             <td>{{ $a->nama_foto }}</td>
-                                            <td>
+                                            {{-- <td>
                                                 <img src="{{ asset('storage/' . $a->foto_about) }}" width="100"
                                                     height="100" alt="">
-                                            </td>
+                                            </td> --}}
                                             <td>{{ $a->created_at }}</td>
                                             <td>
                                                 @if ($a->status == 'aktif')
@@ -152,18 +154,23 @@
                                                     <span class="badge bg-danger">Tidak Aktif</span>
                                                 @endif
                                             <td>
+                                                <span role="button" class="badge bg-primary" style="cursor: pointer;"
+                                                    onclick="openDetailModal('{{ $a->id }}', '{{ $a->nama_foto }}', '{{ $a->foto_about }}')">
+                                                    detail
+                                                </span>
                                                 <span role="button" class="badge bg-warning" style="cursor: pointer;"
                                                     onclick="openEditModal('{{ $a->id }}', '{{ $a->nama_foto }}', '{{ $a->foto_about }}', '{{ $a->status }}')">
                                                     Edit
                                                 </span>
-                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                <span role="button" class="badge bg-danger" style="cursor: pointer;"
+                                                    data-bs-toggle="modal"
                                                     data-bs-target="#konfirmasiDelete-{{ $a->id }}">
                                                     Hapus
-                                                </button>
+                                                </span>
                                             </td>
+
                                         </tr>
                                         @include('admin.about_page.confirm_delete')
-                                        
                                     @endforeach
                                 </tbody>
                             @endif
@@ -175,6 +182,7 @@
 
         @include('admin.about_page.tambah_about')
         @include('admin.about_page.edit_about')
+        @include('admin.about_page.detail_about')
 
         <footer>
             <div class="footer clearfix mb-0 text-muted">
@@ -188,5 +196,72 @@
             </div>
         </footer>
     </div>
+
+    @if (session('sukses'))
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+
+            Toast.fire({
+                icon: "success",
+                title: "Data Berhasil Ditambahkan"
+            });
+        </script>
+    @endif
+
+    @if (session('hapus'))
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+
+            Toast.fire({
+                icon: "success",
+                title: "Data Berhasil DiHapus"
+            });
+        </script>
+    @endif
+
+
+    @if (session('ubah'))
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+
+            Toast.fire({
+                icon: "success",
+                title: "Data Berhasil DiUbah"
+            });
+        </script>
+    @endif
 
 @endsection

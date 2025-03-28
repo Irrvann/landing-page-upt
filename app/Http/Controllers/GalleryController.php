@@ -63,7 +63,7 @@ class GalleryController extends Controller
 
         $gallery->update($data);
 
-        return redirect('/master/galeri')->with('sukses', 'Data Berhasil Diubah');
+        return redirect('/master/galeri')->with('ubah', 'Data Berhasil Diubah');
     }
 
     public function destroy($id)
@@ -71,7 +71,7 @@ class GalleryController extends Controller
         $data = GalleryModel::findOrFail($id);
         $data->delete();
 
-        return redirect('/master/galeri')->with('sukses', 'Data Berhasil Dihapus');
+        return redirect('/master/galeri')->with('hapus', 'Data Berhasil Dihapus');
     }
     
 }

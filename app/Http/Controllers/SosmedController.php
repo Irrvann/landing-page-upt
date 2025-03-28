@@ -73,7 +73,7 @@ class SosmedController extends Controller
 
         $sosmed->update($data);
 
-        return redirect('/master/sosmed')->with('sukses', 'Data Berhasil Diubah');
+        return redirect('/master/sosmed')->with('ubah', 'Data Berhasil Diubah');
     }
 
 
@@ -82,6 +82,6 @@ class SosmedController extends Controller
         $data = SosmedModels::findOrFail($id);
         $data->delete();
 
-        return redirect('/master/sosmed')->with('sukses', 'Data Berhasil Dihapus');
+        return redirect('/master/sosmed')->with('hapus', 'Data Berhasil Dihapus');
     }
 }

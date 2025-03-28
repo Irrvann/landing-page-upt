@@ -10,7 +10,7 @@
                     aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="{{ route('register') }}">
+                <form method="POST" action="{{ route('register.admin') }}">
                     @csrf
 
                     <div class="mb-3">
@@ -27,6 +27,17 @@
                         <x-input-error :messages="$errors->get('nama')" class="mt-2" />
                     </div>
 
+                    <div class="mb-3">
+                        <x-input-label for="jabatan" :value="__('Jabatan')" class="form-label" />
+                        <select id="jabatan" name="jabatan" class="form-select" required>
+                            <option value="" disabled selected>Pilih Jabatan</option>
+                            <option value="Koordinator" {{ old('jabatan') == 'Koordinator' ? 'selected' : '' }}>Koordinator</option>
+                            <option value="Administrasi" {{ old('jabatan') == 'Administrasi' ? 'selected' : '' }}>Administrasi</option>
+                            <option value="Teknisi" {{ old('jabatan') == 'Teknisi' ? 'selected' : '' }}>Teknisi</option>
+                        </select>
+                        <x-input-error :messages="$errors->get('jabatan')" class="mt-2" />
+                    </div>
+                    
                     <div class="mb-3">
                         <x-input-label for="password" :value="__('Password')" class="form-label" />
                         <x-text-input id="password" name="password" type="password" class="form-control" required
@@ -54,6 +65,9 @@
         </div>
     </div>
 </div>
+
+
+
 
 
 

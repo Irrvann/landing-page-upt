@@ -55,8 +55,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/master/sosmed-hapus/{id}', [SosmedController::class, 'destroy']);
 
     // Rute Master User
-    Route::get('/master/akun', [AuthenticatedSessionController::class, 'index']);
+    Route::get('/akun', [AuthenticatedSessionController::class, 'index']);
     Route::delete('/master/akun-hapus/{id}', [AuthenticatedSessionController::class, 'hapus']);
+    Route::post('/register-admin', [AuthenticatedSessionController::class, 'tambah'])->name('register.admin');
+
 });
 
 
